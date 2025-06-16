@@ -6,7 +6,7 @@
 /*   By: yanzhao <yanzhao@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 23:08:11 by yanzhao           #+#    #+#             */
-/*   Updated: 2025/06/14 22:14:41 by yanzhao          ###   ########.fr       */
+/*   Updated: 2025/06/16 20:23:38 by yanzhao          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdarg.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdint.h>
 
 typedef struct s_flag
 {
@@ -75,8 +76,8 @@ char	*ft_itoa(int nbr);
 char	*ft_utoa(unsigned int nbr);
 char	*ft_xtoa(unsigned int nbr, char flag_spec);
 
-//ft_convert_long_str.c
-char	*ft_ptoa(unsigned long nbr);
+//ft_convert_uintptr_t_str.c
+char	*ft_ptoa(uintptr_t nbr);
 
 //ft_printf.c
 char	*get_str_spec_x_u_p(t_format_spec *flag, t_variables *variables);

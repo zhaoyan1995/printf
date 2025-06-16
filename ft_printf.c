@@ -6,7 +6,7 @@
 /*   By: yanzhao <yanzhao@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 18:07:36 by yanzhao           #+#    #+#             */
-/*   Updated: 2025/06/14 21:13:28 by yanzhao          ###   ########.fr       */
+/*   Updated: 2025/06/16 20:15:19 by yanzhao          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*get_str_spec_x_u_p(t_format_spec *flag, t_variables *variables)
 			str = ft_xtoa(variables->u, flag->spec);
 	}
 	else
-		str = ft_ptoa((unsigned long)(variables->p));
+		str = ft_ptoa((uintptr_t)(variables->p));
 	return (str);
 }
 
