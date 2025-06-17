@@ -5,84 +5,88 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yanzhao <yanzhao@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/04 12:56:00 by yanzhao           #+#    #+#             */
-/*   Updated: 2025/06/12 23:54:35 by yanzhao          ###   ########.fr       */
+/*   Created: 2025/06/02 18:07:36 by yanzhao           #+#    #+#             */
+/*   Updated: 2025/06/14 21:20:42 by yanzhao          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*init_format_spec(char *str, t_format_spec *flag)
+void	reset_flag_common(t_format_spec *flag)
 {
-	if (!str)
-		return (NULL);
-	str++;
-	while (*str)
-	{
-		if (*str == '-')
-			flag->left_align = 1;
-		else if (*str == '+')
-			flag->positive = 1;
-		else if (*str == ' ')
-			flag->space = 1;
-		else if (*str == '#')
-			flag->alt_form = 1;
-		else if (*str == '0')
-			flag->zero_pad = 1;
-		else
-			break ;
-		str++;
-	}
-	return ((char *)str);
+	if (flag->positive != 0 && flag->space != 0)
+		flag->space = 0;
+	if (flag->zero_pad != 0 && flag->left_align)
+		flag->zero_pad = 0;
+	if (flag->prec >= 0 && flag->zero_pad != 0)
+		flag->zero_pad = 0;
 }
 
-char	*get_width(char *str, t_format_spec *flag)
+void	reset_flag_by_specifier(t_format_spec *flag, t_variables *variables)
 {
-	while (*str)
+	if (flag->spec == 'c' || flag->spec == 's' || flag->spec == 'p')
 	{
-		if (*str <= '9' && *str >= '0')
-			flag->width = flag->width * 10 + (*str - '0');
-		else
-			break ;
-		str++;
+		flag->positive = 0;
+		flag->space = 0;
+		flag->alt_form = 0;
+		flag->zero_pad = 0;
+		if (flag->spec == 'c' || flag->spec == 'p')
+			flag->prec = 0;
 	}
-	return (str);
+	else if (flag->spec == 'd' || flag->spec == 'i')
+	{
+		flag->alt_form = 0;
+		if ((flag->space != 0 || flag->positive != 0) && variables->i < 0)
+		{
+			flag->space = 0;
+			flag->positive = 0;
+		}
+	}
+	else if (flag->spec == 'x' || flag->spec == 'X' || flag->spec == 'u')
+	{
+		flag->positive = 0;
+		flag->space = 0;
+		if (flag->spec == 'u')
+			flag->alt_form = 0;
+	}
 }
 
-char	*get_precision(char *str, t_format_spec *flag)
+int	is_specifier(char c)
 {
-	if (*str != '.')
-		return (str);
-	str++;
-	flag->prec = 0;
-	while (*str)
-	{
-		if (*str <= '9' && *str >= '0')
-			flag->prec = flag->prec * 10 + (*str - '0');
-		else
-			break ;
-		str++;
-	}
-	return (str);
+	if (c == 'c' || c == 's'
+		|| c == 'p' || c == 'd'
+		|| c == 'i' || c == 'u'
+		|| c == 'x' || c == 'X' || c == '%')
+		return (1);
+	return (0);
 }
 
-void	*ft_memset(void *s, int c, size_t n)
+int	check_format_spec(char *str, va_list *args,
+	t_format_spec *flag, t_variables *variables)
 {
-	unsigned char	*s1;
-	size_t			i;
+	int	len_str_original;
 
-	s1 = (unsigned char *)s;
-	i = 0;
-	while (i < n)
+	len_str_original = ft_strlen(str);
+	str = init_format_spec(str, flag);
+	str = get_width(str, flag);
+	str = get_precision(str, flag);
+	if (is_specifier(*str))
 	{
-		s1[i] = (unsigned char)c;
-		i++;
+		flag->spec = *str;
+		if (*str == 'c' || *str == 'd' || *str == 'i')
+			variables->i = va_arg(*args, int);
+		else if (*str == 'u' || *str == 'x' || *str == 'X')
+			variables->u = va_arg(*args, unsigned int);
+		else if (*str == 's')
+			variables->s = va_arg(*args, char *);
+		else if (*str == 'p')
+			variables->p = va_arg(*args, void *);
+		else if (*str == '%')
+			variables->percent = 1;
+		reset_flag_common(flag);
+		reset_flag_by_specifier(flag, variables);
 	}
-	return (s);
-}
-
-void	init_flag(t_format_spec *flag)
-{
-	ft_memset(flag, 0, sizeof(t_format_spec));
-	flag->prec = -1;
+	else
+		return (init_flag(flag), 0);
+	return (len_str_original - ft_strlen(++str));
 }

@@ -6,7 +6,7 @@
 /*   By: yanzhao <yanzhao@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 23:08:11 by yanzhao           #+#    #+#             */
-/*   Updated: 2025/06/16 20:23:38 by yanzhao          ###   ########.fr       */
+/*   Updated: 2025/06/17 18:55:06 by yanzhao          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,14 @@ int		iterative_format_string(const char *str, va_list *args,
 			t_format_spec *flag, t_variables *variables);
 int		ft_printf(const char *str, ...);
 
-//ft_adjust_flag.c
+//ft_check_flag.c
 void	reset_flag_common(t_format_spec *flag);
 void	reset_flag_by_specifier(t_format_spec *flag, t_variables *variables);
 int		is_specifier(char c);
 int		check_format_spec(char *str, va_list *args,
 			t_format_spec *flag, t_variables *variables);
 
-//ft_check_flag.c
+//ft_check_flag_utils.c
 char	*init_format_spec(char *str, t_format_spec *flag);
 char	*get_width(char *str, t_format_spec *flag);
 char	*get_precision(char *str, t_format_spec *flag);
