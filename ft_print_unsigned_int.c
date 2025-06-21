@@ -6,7 +6,7 @@
 /*   By: yanzhao <yanzhao@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 23:10:04 by yanzhao           #+#    #+#             */
-/*   Updated: 2025/06/14 19:22:09 by yanzhao          ###   ########.fr       */
+/*   Updated: 2025/06/21 17:55:26 by yanzhao          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_print_unsigned_int(char *str,
 	len_print = 0;
 	num_space = cal_nbr_space(flag->width, flag->prec, len_str, flag->zero_pad);
 	num_zero = cal_nbr_zero(flag->width, flag->prec, len_str, flag->zero_pad);
-	if (len_str + num_space + num_zero == flag->width && flag->spec != 'u')
+	if (len_str + num_space + num_zero == flag->width)
 		adjust_space_zero(&num_space, &num_zero, flag, variables);
 	len_print += ft_print_space(num_space, flag);
 	if (flag->spec != 'u')

@@ -6,7 +6,7 @@
 /*   By: yanzhao <yanzhao@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 23:10:04 by yanzhao           #+#    #+#             */
-/*   Updated: 2025/06/14 19:24:24 by yanzhao          ###   ########.fr       */
+/*   Updated: 2025/06/21 17:55:06 by yanzhao          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	cal_nbr_space(int width, int prec, int len_str, int zero_pad)
 void	adjust_space_zero(int *num_space, int *num_zero,
 		t_format_spec *flag, t_variables *variables)
 {
-	if ((flag->spec == 'd' || flag->spec == 'i' || flag->spec == 'u')
+	if ((flag->spec == 'd' || flag->spec == 'i')
 		&& (variables->i < 0 || flag->positive || flag->space))
 	{
 		if (*num_space)
@@ -70,7 +70,7 @@ int	ft_print_str_nbr(char *str, t_format_spec *flag, int len_print)
 		write(1, str, len_str);
 		return (len_str);
 	}
-	if (*str == '0' && flag->prec == 0 && !flag->zero_pad)
+	if (*str == '0' && flag->prec == 0)
 	{
 		if (len_print < flag->width)
 			result += write(1, " ", 1);
