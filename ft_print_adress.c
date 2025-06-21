@@ -6,15 +6,15 @@
 /*   By: yanzhao <yanzhao@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 23:10:04 by yanzhao           #+#    #+#             */
-/*   Updated: 2025/06/13 21:06:01 by yanzhao          ###   ########.fr       */
+/*   Updated: 2025/06/21 20:03:52 by yanzhao          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static	int	ft_len_prefix(unsigned long i)
+static	int	ft_len_prefix(uintptr_t i)
 {
-	if ((unsigned long)i)
+	if (i)
 		return (2);
 	return (0);
 }
@@ -28,8 +28,8 @@ int	ft_print_adress(char *str,
 	int		prefix;
 	char	*str1;
 
-	prefix = ft_len_prefix((unsigned long)variables->p);
-	if ((unsigned long)variables->p)
+	prefix = ft_len_prefix((uintptr_t)variables->p);
+	if ((uintptr_t)variables->p)
 		str1 = ft_strdup(str);
 	else
 		str1 = ft_strdup("(nil)");
