@@ -6,7 +6,7 @@
 /*   By: yanzhao <yanzhao@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 23:10:04 by yanzhao           #+#    #+#             */
-/*   Updated: 2025/06/14 19:23:42 by yanzhao          ###   ########.fr       */
+/*   Updated: 2025/06/21 22:53:55 by yanzhao          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ static char	*ft_strdup_prec(char *str, int prec)
 	if (len_str > prec)
 		str1 = malloc(prec + 1);
 	else
-		str1 = malloc(len_str + 1);
+		return (ft_strdup(str));
 	if (!str1)
 		return (NULL);
 	i = 0;
-	while (i < prec && i < len_str)
+	while (i < prec)
 	{
 		str1[i] = str[i];
 		i++;
@@ -63,6 +63,8 @@ int	ft_print_str_s(char *str, t_format_spec *flag)
 		str1 = ft_strdup_prec("(null)", flag->prec);
 	else
 		str1 = ft_strdup_prec(str, flag->prec);
+	if (!str1)
+		return (0);
 	len_str = ft_strlen(str1);
 	len_print = 0;
 	num_space = 0;
