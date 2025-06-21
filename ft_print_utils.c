@@ -6,7 +6,7 @@
 /*   By: yanzhao <yanzhao@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 23:10:04 by yanzhao           #+#    #+#             */
-/*   Updated: 2025/06/21 17:55:06 by yanzhao          ###   ########.fr       */
+/*   Updated: 2025/06/21 19:23:59 by yanzhao          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,6 @@ void	adjust_space_zero(int *num_space, int *num_zero,
 			(*num_space) -= 2;
 		else if (*num_zero && flag->prec < 0 && variables->u && flag->alt_form)
 			(*num_zero) -= 2;
-		else if (variables->u == 0 && flag->alt_form
-			&& flag->prec <= 0 && *num_space - 2 >= 0 && !flag->left_align)
-			(*num_space) -= 2;
 	}
 }
 
